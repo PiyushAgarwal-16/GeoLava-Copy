@@ -1,5 +1,5 @@
 /* ==========================================================================
-   URBAN TELEMETRY - MINIMALIST ARCHITECTURAL EDITION
+   URBAN TELEMETRY & VISUAL BUILDING EDITOR - STYLESHEET
    ========================================================================== */
 
 :root {
@@ -31,7 +31,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  padding: 24px 20px 36px;
+  padding: 20px 20px 32px;
   overflow-x: hidden;
   user-select: none;
   -webkit-font-smoothing: antialiased;
@@ -46,7 +46,7 @@ body {
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 12px;
 }
 
 .frame-guides {
@@ -98,7 +98,7 @@ body {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  padding: 8px 12px 6px;
+  padding: 6px 12px 4px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.07);
   position: relative;
   z-index: 2;
@@ -111,7 +111,7 @@ body {
 }
 
 .brand-title {
-  font-size: 28px;
+  font-size: 26px;
   font-weight: 300;
   letter-spacing: -0.02em;
   color: var(--text-main);
@@ -128,36 +128,42 @@ body {
 .header-meta {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 14px;
   font-family: var(--font-mono);
   font-size: 11px;
   color: var(--text-dim);
   letter-spacing: 0.06em;
 }
 
-.calibrate-btn {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: var(--text-muted);
+.edit-btn {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: var(--text-main);
   font-family: var(--font-mono);
   font-size: 11px;
-  padding: 4px 10px;
-  border-radius: 4px;
+  font-weight: 500;
+  padding: 5px 12px;
+  border-radius: 5px;
   cursor: pointer;
   transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
-.calibrate-btn:hover,
-.calibrate-btn.active {
-  background: rgba(255, 255, 255, 0.15);
-  border-color: rgba(255, 255, 255, 0.4);
-  color: #ffffff;
+.edit-btn:hover,
+.edit-btn.active {
+  background: #ffffff;
+  border-color: #ffffff;
+  color: #000000;
+  font-weight: 600;
+  box-shadow: 0 0 14px rgba(255, 255, 255, 0.3);
 }
 
 /* --------------------------------------------------------------------------
-   CALIBRATION HUD BAR (Active when toggled)
+   VISUAL EDITOR TOOLBAR
    -------------------------------------------------------------------------- */
-.calibration-bar {
+.editor-bar {
   display: none;
   background: rgba(14, 18, 26, 0.96);
   border: 1px solid rgba(255, 255, 255, 0.16);
@@ -171,17 +177,18 @@ body {
   z-index: 20;
 }
 
-.calibration-bar.open {
+.editor-bar.open {
   display: flex;
 }
 
-.cal-left {
+.editor-left,
+.editor-right {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 10px;
 }
 
-.cal-badge {
+.edit-badge {
   background: #ffffff;
   color: #000000;
   font-weight: 700;
@@ -191,42 +198,89 @@ body {
   letter-spacing: 0.08em;
 }
 
-.cal-coords {
-  color: #ffffff;
-  font-weight: 600;
-}
-
-.cal-last-click {
-  color: #94a3b8;
-}
-
-.cal-right {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-
-.cal-select {
+.edit-select {
   background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.22);
   color: #ffffff;
   font-family: var(--font-mono);
   font-size: 11px;
-  padding: 4px 8px;
+  padding: 5px 8px;
   border-radius: 4px;
   outline: none;
+  cursor: pointer;
 }
 
-.cal-select option {
+.edit-select option {
   background: #11141a;
   color: #ffffff;
 }
 
-.cal-hint {
+.mode-btn-group {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.mode-tab-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-dim);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  padding: 5px 9px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.mode-tab-btn.active {
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.editor-center {
+  flex: 1;
+  text-align: center;
+}
+
+.edit-status {
+  color: #ffffff;
+  font-weight: 500;
+}
+
+.edit-action-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #ffffff;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.edit-action-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.edit-action-btn.danger {
+  color: #fda4af;
+  border-color: rgba(244, 63, 94, 0.3);
+}
+
+.edit-action-btn.danger:hover {
+  background: rgba(244, 63, 94, 0.2);
+}
+
+.edit-hint {
   color: var(--text-dim);
 }
 
-.cal-hint b {
+.edit-hint b {
   color: #ffffff;
 }
 
@@ -296,7 +350,7 @@ body {
   fill: rgba(0, 0, 0, 0.001);
   stroke: transparent;
   stroke-width: 6px;
-  cursor: crosshair;
+  cursor: pointer;
   pointer-events: all;
 }
 
@@ -334,43 +388,72 @@ body {
   opacity: 1;
 }
 
-/* In calibration mode, wireframes stay visible */
-body.mode-calibration .wireframe-roof,
-body.mode-calibration .wireframe-edge {
-  opacity: 0.6 !important;
+/* --------------------------------------------------------------------------
+   INTERACTIVE DRAGGABLE VERTEX HANDLES (EDIT MODE)
+   -------------------------------------------------------------------------- */
+body.mode-editor .building-hit-zone {
+  pointer-events: none; /* Disable standard hover when in edit mode */
 }
 
-body.mode-calibration .building-vector-group.cal-focused .wireframe-roof,
-body.mode-calibration .building-vector-group.cal-focused .wireframe-edge {
+body.mode-editor .viewport-card {
+  cursor: crosshair;
+}
+
+body.mode-editor .wireframe-roof,
+body.mode-editor .wireframe-edge {
+  opacity: 0.35 !important;
+}
+
+body.mode-editor .building-vector-group.is-editing .wireframe-roof,
+body.mode-editor .building-vector-group.is-editing .wireframe-edge {
   opacity: 1 !important;
-  stroke-width: 3px;
+  stroke-width: 2.8px;
+  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.9));
 }
 
-/* Vertex Points (Calibration Dots) */
-.calibration-vertex {
-  cursor: pointer;
+.drag-handle-group {
+  cursor: grab;
+  pointer-events: all;
+}
+
+.drag-handle-group:active,
+.drag-handle-group.is-dragging {
+  cursor: grabbing;
+}
+
+.drag-handle-circle {
+  fill: #ffffff;
+  stroke: #000000;
+  stroke-width: 2.5px;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.8));
   transition: transform 0.15s ease;
 }
 
-.calibration-vertex:hover {
+.drag-handle-group:hover .drag-handle-circle {
   transform: scale(1.3);
+  fill: #facc15;
 }
 
-.cal-vertex-circle {
-  fill: #ffffff;
-  stroke: #000000;
-  stroke-width: 2px;
-}
-
-.cal-vertex-text {
+.drag-handle-text {
   font-family: var(--font-mono);
   font-size: 13px;
-  font-weight: 700;
-  fill: #ffffff;
-  stroke: #000000;
-  stroke-width: 3px;
-  paint-order: stroke fill;
+  font-weight: 800;
+  fill: #000000;
   pointer-events: none;
+}
+
+/* Re-plot preview polygon */
+.replot-preview-poly {
+  fill: rgba(250, 204, 21, 0.15);
+  stroke: #facc15;
+  stroke-width: 2px;
+  stroke-dasharray: 6 4;
+}
+
+.replot-click-dot {
+  fill: #facc15;
+  stroke: #000000;
+  stroke-width: 2px;
 }
 
 /* --------------------------------------------------------------------------
@@ -567,7 +650,7 @@ body.mode-calibration .building-vector-group.cal-focused .wireframe-edge {
   top: 18px;
   left: 50%;
   transform: translateX(-50%) translateY(-10px);
-  background: rgba(255, 255, 255, 0.95);
+  background: #ffffff;
   color: #000000;
   font-family: var(--font-mono);
   font-size: 11px;

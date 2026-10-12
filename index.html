@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Assess // Building Telemetry</title>
+  <title>Assess // Building Telemetry & Visual Editor</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -33,28 +33,37 @@
 
       <div class="header-meta">
         <span>LAT 37.788°N • LON 122.401°W</span>
-        <button id="calibrateToggleBtn" class="calibrate-btn" title="Toggle Visual Point Calibration (Key: 'C')">
-          📐 Calibrate
+        <button id="editToggleBtn" class="edit-btn" title="Toggle Interactive Building Editor (Key: 'E')">
+          ✏️ Edit Mode
         </button>
       </div>
     </header>
 
-    <!-- Calibration HUD Bar (Active when Calibration mode is toggled) -->
-    <section id="calibrationBar" class="calibration-bar" aria-hidden="true">
-      <div class="cal-left">
-        <span class="cal-badge">CALIBRATION MODE</span>
-        <span id="calCoords" class="cal-coords">Cursor: X: 0, Y: 0</span>
-        <span id="calLastClick" class="cal-last-click">Click image to copy [X, Y]</span>
-      </div>
-      <div class="cal-right">
-        <select id="calBuildingSelect" class="cal-select">
-          <option value="all">Highlight All Buildings</option>
-          <option value="bldg-terrace">1. The Terrace Landmark</option>
-          <option value="bldg-left-tower">2. Montgomery Tower</option>
-          <option value="bldg-dark-midrise">3. Slate & Iron Lofts</option>
-          <option value="bldg-civic-pavilion">4. Yerba Pavilion</option>
+    <!-- Interactive Visual Editor Toolbar -->
+    <section id="editorBar" class="editor-bar" aria-label="Building Point Editor Toolbar">
+      <div class="editor-left">
+        <span class="edit-badge">EDITOR</span>
+        <select id="editBuildingSelect" class="edit-select" title="Choose building to calibrate">
+          <option value="bldg-terrace">1. The Terrace Landmark (6 pts)</option>
+          <option value="bldg-left-tower">2. Montgomery Tower (4 pts)</option>
+          <option value="bldg-dark-midrise">3. Slate & Iron Lofts (6 pts)</option>
+          <option value="bldg-civic-pavilion">4. Yerba Pavilion (7 pts)</option>
         </select>
-        <span class="cal-hint">Shortcut: Press <b>C</b> to close</span>
+        
+        <div class="mode-btn-group">
+          <button id="modeDragBtn" class="mode-tab-btn active" title="Click & drag vertex handles">✋ Drag Handles</button>
+          <button id="modeReplotBtn" class="mode-tab-btn" title="Click points sequentially on the image">🎯 Re-plot Points</button>
+        </div>
+      </div>
+
+      <div class="editor-center">
+        <span id="editStatusReadout" class="edit-status">Drag handles to adjust alignment live</span>
+      </div>
+
+      <div class="editor-right">
+        <button id="exportCodeBtn" class="edit-action-btn" title="Copy updated JavaScript code for data.js">📋 Copy Code</button>
+        <button id="resetDefaultsBtn" class="edit-action-btn danger" title="Revert to original default coordinates">↺ Reset</button>
+        <span class="edit-hint">Key: <b>E</b></span>
       </div>
     </section>
 
@@ -63,13 +72,13 @@
       <!-- Layer 1: Base aerial satellite image -->
       <img id="baseImage" class="layer-base-image" src="Buildings.webp" alt="San Francisco SOMA Aerial View" />
 
-      <!-- Layer 2: Clipped spotlight image (hovered building cutout) -->
+      <!-- Layer 2: Clipped spotlight image (hovered / edited building cutout) -->
       <img id="spotlightImage" class="layer-spotlight-image" src="Buildings.webp" alt="Illuminated Building Focus" />
 
-      <!-- Layer 3: SVG Vector layer for wireframes, hit zones, and calibration vertex markers -->
+      <!-- Layer 3: SVG Vector layer for wireframes, hit zones, and interactive drag handles -->
       <svg id="svgOverlay" class="layer-vector-overlay" viewBox="0 0 2210 1473" preserveAspectRatio="none" aria-hidden="true"></svg>
 
-      <!-- Layer 4: Minimalist Telemetry Card (Screenshot 2 & 4 Replica) -->
+      <!-- Layer 4: Minimalist Telemetry Card -->
       <article id="hudCard" class="hud-card state-standby" aria-live="polite">
         <div class="hud-header">
           <h2 id="hudBldgName" class="hud-bldg-name">District Telemetry</h2>
@@ -114,13 +123,14 @@
         <p id="hudFactText" class="hud-fact-text"></p>
       </article>
 
-      <!-- Floating Coordinate Toast Notification -->
+      <!-- Floating Toast Notification -->
       <div id="copyToast" class="copy-toast" aria-hidden="true">Copied to clipboard</div>
     </section>
 
     <!-- Canvas Footer -->
     <footer class="canvas-footer">
       <span>INDEXED: 4 STRUCTURES</span>
+      <span id="footerModeInfo">VIEW MODE: HOVER TELEMETRY</span>
       <span>Buildings.webp (2210 × 1473)</span>
     </footer>
   </main>

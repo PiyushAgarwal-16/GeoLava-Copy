@@ -55,13 +55,23 @@ const BUILDINGS = [
     // [polygon]: Outer boundary enclosing the entire 3D building volume
     // Used for hover detection hitbox & spotlight illumination cutout
     // ------------------------------------------------------------------------
+    // polygon: [
+    //   [1342, 238],  // [0] Top roof apex (rear wall where building meets the rear tower)
+    //   [1822, 437],  // [1] Right roof corner (where roof hedge meets the dark building)
+    //   [1508, 638],  // [2] Front-right roof corner (where front facade meets side wall)
+    //   [1482, 1072], // [3] Front-right street base corner (sidewalk edge near alley)
+    //   [992, 836],   // [4] Front-left street base corner (sidewalk corner near Walgreens entrance)
+    //   [1006, 412],  // [5] Front-left roof corner (where roof hedge meets front-left wall)
+    // ],
+
+        // Updated coordinates for The Terrace Landmark
     polygon: [
-      [1342, 238],  // [0] Top roof apex (rear wall where building meets the rear tower)
-      [1822, 437],  // [1] Right roof corner (where roof hedge meets the dark building)
-      [1508, 638],  // [2] Front-right roof corner (where front facade meets side wall)
-      [1482, 1072], // [3] Front-right street base corner (sidewalk edge near alley)
-      [992, 836],   // [4] Front-left street base corner (sidewalk corner near Walgreens entrance)
-      [1006, 412],  // [5] Front-left roof corner (where roof hedge meets front-left wall)
+      [1342, 238], // [0]
+      [1822, 437], // [1]
+      [1508, 638], // [2]
+      [1477, 1101], // [3]
+      [995, 870], // [4]
+      [1006, 412], // [5]
     ],
 
     // ------------------------------------------------------------------------
@@ -149,13 +159,21 @@ const BUILDINGS = [
     // ------------------------------------------------------------------------
     // [polygon]: Left boundary of the viewport covering the tower volume
     // ------------------------------------------------------------------------
-    polygon: [
-      [0, 0],         // [0] Top-left frame corner
-      [408, 0],       // [1] Top-right roof edge of tower
-      [426, 1473],    // [2] Bottom-right vertical corner of tower at frame bottom
-      [0, 1473],      // [3] Bottom-left frame corner
-    ],
+    // polygon: [
+    //   [0, 0],         // [0] Top-left frame corner
+    //   [408, 0],       // [1] Top-right roof edge of tower
+    //   [426, 1473],    // [2] Bottom-right vertical corner of tower at frame bottom
+    //   [0, 1473],      // [3] Bottom-left frame corner
+    // ],
 
+
+        // Updated coordinates for Montgomery Financial Tower
+    polygon: [
+      [0, 0], // [0]
+      [373, 0], // [1]
+      [426, 1473], // [2]
+      [0, 1473], // [3]
+    ],
     roofPolygon: [
       [0, 0],         // [0] Top-left
       [408, 0],       // [1] Top-right
@@ -213,15 +231,23 @@ const BUILDINGS = [
     // ------------------------------------------------------------------------
     // [polygon]: 3D volume of the dark 6-story building
     // ------------------------------------------------------------------------
+    // polygon: [
+    //   [1736, 396],   // [0] Left-rear roof corner (shared with Terrace Landmark)
+    //   [1970, 500],   // [1] Right-rear roof corner (meets building behind)
+    //   [1796, 606],   // [2] Right-front roof corner (meets adjacent brick building)
+    //   [1776, 1184],  // [3] Right-front street sidewalk corner
+    //   [1482, 1072],  // [4] Left-front street sidewalk corner (shared with Terrace Landmark)
+    //   [1508, 638],   // [5] Left-front roof corner (shared with Terrace Landmark)
+    // ],
+        // Updated coordinates for Slate & Iron Lofts
     polygon: [
-      [1736, 396],   // [0] Left-rear roof corner (shared with Terrace Landmark)
-      [1970, 500],   // [1] Right-rear roof corner (meets building behind)
-      [1796, 606],   // [2] Right-front roof corner (meets adjacent brick building)
-      [1776, 1184],  // [3] Right-front street sidewalk corner
-      [1482, 1072],  // [4] Left-front street sidewalk corner (shared with Terrace Landmark)
-      [1508, 638],   // [5] Left-front roof corner (shared with Terrace Landmark)
+      [1836, 496], // [0]
+      [2072, 607], // [1]
+      [1789, 854], // [2]
+      [1735, 1231], // [3]
+      [1480, 1111], // [4]
+      [1519, 709], // [5]
     ],
-
     roofPolygon: [
       [1736, 396],   // [0] Left-rear roof corner
       [1970, 500],   // [1] Right-rear roof corner
@@ -282,16 +308,27 @@ const BUILDINGS = [
     // ------------------------------------------------------------------------
     // [polygon]: Cantilever trellis roof and entrance column envelope
     // ------------------------------------------------------------------------
-    polygon: [
-      [468, 54],     // [0] Top-left cantilever corner
-      [1138, 162],   // [1] Top-right cantilever corner (facing north court)
-      [772, 418],    // [2] Bottom-right cantilever corner (apex pointing toward street)
-      [772, 442],    // [3] Base of corner support column
-      [688, 456],    // [4] Entrance plaza curb
-      [420, 360],    // [5] Southwest entrance wall
-      [420, 246],    // [6] Trellis left edge where it meets Montgomery Tower
-    ],
+    // polygon: [
+    //   [468, 54],     // [0] Top-left cantilever corner
+    //   [1138, 162],   // [1] Top-right cantilever corner (facing north court)
+    //   [772, 418],    // [2] Bottom-right cantilever corner (apex pointing toward street)
+    //   [772, 442],    // [3] Base of corner support column
+    //   [688, 456],    // [4] Entrance plaza curb
+    //   [420, 360],    // [5] Southwest entrance wall
+    //   [420, 246],    // [6] Trellis left edge where it meets Montgomery Tower
+    // ],
 
+
+        // Updated coordinates for Yerba Civic Pavilion
+    polygon: [
+      [382, 182], // [0]
+      [700, 30], // [1]
+      [1205, 258], // [2]
+      [748, 510], // [3]
+      [743, 652], // [4]
+      [393, 485], // [5]
+      [389, 335], // [6]
+    ],
     roofPolygon: [
       [468, 54],     // [0] Top-left
       [1138, 162],   // [1] Top-right
