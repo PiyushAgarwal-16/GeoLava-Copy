@@ -33,8 +33,30 @@
 
       <div class="header-meta">
         <span>LAT 37.788°N • LON 122.401°W</span>
+        <button id="calibrateToggleBtn" class="calibrate-btn" title="Toggle Visual Point Calibration (Key: 'C')">
+          📐 Calibrate
+        </button>
       </div>
     </header>
+
+    <!-- Calibration HUD Bar (Active when Calibration mode is toggled) -->
+    <section id="calibrationBar" class="calibration-bar" aria-hidden="true">
+      <div class="cal-left">
+        <span class="cal-badge">CALIBRATION MODE</span>
+        <span id="calCoords" class="cal-coords">Cursor: X: 0, Y: 0</span>
+        <span id="calLastClick" class="cal-last-click">Click image to copy [X, Y]</span>
+      </div>
+      <div class="cal-right">
+        <select id="calBuildingSelect" class="cal-select">
+          <option value="all">Highlight All Buildings</option>
+          <option value="bldg-terrace">1. The Terrace Landmark</option>
+          <option value="bldg-left-tower">2. Montgomery Tower</option>
+          <option value="bldg-dark-midrise">3. Slate & Iron Lofts</option>
+          <option value="bldg-civic-pavilion">4. Yerba Pavilion</option>
+        </select>
+        <span class="cal-hint">Shortcut: Press <b>C</b> to close</span>
+      </div>
+    </section>
 
     <!-- Interactive Aerial Viewport Container -->
     <section id="viewportCard" class="viewport-card" aria-label="Interactive Building Telemetry Viewport">
@@ -44,7 +66,7 @@
       <!-- Layer 2: Clipped spotlight image (hovered building cutout) -->
       <img id="spotlightImage" class="layer-spotlight-image" src="Buildings.webp" alt="Illuminated Building Focus" />
 
-      <!-- Layer 3: SVG Vector layer for wireframes and callouts -->
+      <!-- Layer 3: SVG Vector layer for wireframes, hit zones, and calibration vertex markers -->
       <svg id="svgOverlay" class="layer-vector-overlay" viewBox="0 0 2210 1473" preserveAspectRatio="none" aria-hidden="true"></svg>
 
       <!-- Layer 4: Minimalist Telemetry Card (Screenshot 2 & 4 Replica) -->
@@ -91,6 +113,9 @@
         <!-- Single Fact Line -->
         <p id="hudFactText" class="hud-fact-text"></p>
       </article>
+
+      <!-- Floating Coordinate Toast Notification -->
+      <div id="copyToast" class="copy-toast" aria-hidden="true">Copied to clipboard</div>
     </section>
 
     <!-- Canvas Footer -->
