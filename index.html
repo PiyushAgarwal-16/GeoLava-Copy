@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Assess // Urban Telemetry & Aerial Intelligence</title>
+  <title>Assess // Building Telemetry</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -27,32 +27,14 @@
     <!-- Header & Geospatial Status Bar -->
     <header class="canvas-header">
       <div class="header-brand">
-        <div class="brand-title-wrap">
-          <h1 class="brand-title">Assess</h1>
-          <span class="brand-subtitle">Urban Intelligence // 5cm Aerial Mesh</span>
-        </div>
+        <h1 class="brand-title">Assess</h1>
+        <span class="brand-subtitle">Aerial Telemetry</span>
       </div>
 
       <div class="header-meta">
-        <div class="meta-chip">
-          <span class="status-dot"></span>
-          <span>TELEMETRY ONLINE</span>
-        </div>
-        <div class="meta-chip">
-          <span>LAT 37.788°N • LON 122.401°W</span>
-        </div>
-        <div class="header-actions">
-          <button id="themeToggleBtn" class="tool-btn" title="Toggle Blueprint Theme">☀️ Blueprint</button>
-          <button id="calibrateToggleBtn" class="tool-btn" title="Toggle Coordinate Inspection (Hot-key 'C')">📐 Calibrate</button>
-        </div>
+        <span>LAT 37.788°N • LON 122.401°W</span>
       </div>
     </header>
-
-    <!-- Calibration Info Bar (Toggled with 'C' or button) -->
-    <aside id="calibrationBar" class="calibration-bar">
-      <span>📐 CALIBRATION ACTIVE: Hover cursor across aerial mesh to inspect coordinates.</span>
-      <span id="coordDisplay">X: 0, Y: 0</span>
-    </aside>
 
     <!-- Interactive Aerial Viewport Container -->
     <section id="viewportCard" class="viewport-card" aria-label="Interactive Building Telemetry Viewport">
@@ -62,27 +44,21 @@
       <!-- Layer 2: Clipped spotlight image (hovered building cutout) -->
       <img id="spotlightImage" class="layer-spotlight-image" src="Buildings.webp" alt="Illuminated Building Focus" />
 
-      <!-- Layer 3: SVG Vector layer for wireframes, neon contours, and diamond callouts -->
+      <!-- Layer 3: SVG Vector layer for wireframes and callouts -->
       <svg id="svgOverlay" class="layer-vector-overlay" viewBox="0 0 2210 1473" preserveAspectRatio="none" aria-hidden="true"></svg>
 
-      <!-- Layer 4: Glassmorphic Telemetry HUD Card (Screenshot 2 & 4 Replica) -->
+      <!-- Layer 4: Minimalist Telemetry Card (Screenshot 2 & 4 Replica) -->
       <article id="hudCard" class="hud-card state-standby" aria-live="polite">
-        <div class="hud-top-bar">
-          <div class="hud-badge">
-            <span class="status-dot"></span>
-            <span>BUILDING TELEMETRY</span>
-          </div>
-          <div id="hudCode" class="hud-code">SECTOR 04 // STANDBY</div>
+        <div class="hud-header">
+          <h2 id="hudBldgName" class="hud-bldg-name">District Telemetry</h2>
+          <p id="hudBldgMeta" class="hud-bldg-meta">Hover over a building to inspect</p>
         </div>
 
-        <div class="hud-bldg-identity">
-          <h2 id="hudBldgName" class="hud-bldg-name">District Aerial Telemetry</h2>
-          <p id="hudBldgAddress" class="hud-bldg-address">Hover over any structure to inspect architectural telemetry</p>
-        </div>
+        <div class="standby-hint" id="standbyHint">Hover over a structure to inspect telemetry</div>
 
-        <!-- Sensitivity Analysis Panel (From Screenshot 2) -->
+        <!-- Sensitivity Analysis Panel (Screenshot 2) -->
         <div class="hud-sensitivity-panel">
-          <div class="sensitivity-header">SENSITIVITY ANALYSIS</div>
+          <div class="sensitivity-header">SENSITIVITY</div>
           
           <div class="sensitivity-row">
             <span class="sensitivity-label">Physical Condition</span>
@@ -100,47 +76,27 @@
           </div>
         </div>
 
-        <!-- Key Financial & Environmental Metrics (From Screenshot 4) -->
-        <div class="hud-metrics-grid">
-          <div class="metric-cell">
-            <span class="metric-label">Valuation</span>
-            <div id="metricValuation" class="metric-val">$642.8 M</div>
+        <!-- Minimalist Metrics Row (Screenshot 4) -->
+        <div class="hud-metrics-row">
+          <div class="metric-item">
+            <span>Valuation:</span>
+            <b id="metricValuation">$68.4 M</b>
           </div>
-
-          <div class="metric-cell">
-            <span class="metric-label">Maintenance Efficiency</span>
-            <div id="metricEfficiency" class="metric-val">94.6%</div>
-          </div>
-
-          <div class="metric-cell">
-            <span class="metric-label">Solar Potential</span>
-            <div id="metricSolar" class="metric-val">4,120 MWh / yr</div>
-          </div>
-
-          <div class="metric-cell">
-            <span class="metric-label">Carbon Offset</span>
-            <div id="metricCarbon" class="metric-val">1,240 t / yr</div>
+          <div class="metric-item">
+            <span>Efficiency:</span>
+            <b id="metricEfficiency">94%</b>
           </div>
         </div>
 
-        <!-- Dynamic Architectural Fact Feed -->
-        <div class="hud-fact-box">
-          <div class="fact-title">TELEMETRY DOSSIER & FACTS</div>
-          <p id="hudFactText" class="fact-text">Hover over individual buildings to review structural wear, solar retrofits, and occupancy analytics.</p>
-        </div>
+        <!-- Single Fact Line -->
+        <p id="hudFactText" class="hud-fact-text"></p>
       </article>
     </section>
 
-    <!-- Canvas Footer & Controls Guide -->
+    <!-- Canvas Footer -->
     <footer class="canvas-footer">
-      <div class="footer-stats">
-        <span class="footer-stat-item">STRUCTURES INDEXED: <b>9 ASSETS</b></span>
-        <span class="footer-stat-item">SOURCE: <b>Buildings.webp (2210 × 1473)</b></span>
-        <span class="footer-stat-item">VIEW MODE: <b>HOVER TELEMETRY</b></span>
-      </div>
-      <div class="instructions-hint">
-        <span>◆ HOVER OVER BUILDINGS TO INSPECT WIREFRAME & TELEMETRY</span>
-      </div>
+      <span>INDEXED: 4 STRUCTURES</span>
+      <span>Buildings.webp (2210 × 1473)</span>
     </footer>
   </main>
 
