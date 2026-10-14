@@ -1,2 +1,4 @@
 1. Learn how the wireframes are being auto calibrated
 2. Make it more generalized so you this can be used to do this on any image
+3. Add a create mode in which you can plot any number of points on a building
+4. Remove district telemetry card during editing and creation, so one can see buildings properly
