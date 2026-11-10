@@ -267,6 +267,18 @@ body {
   background: rgba(255, 255, 255, 0.2);
 }
 
+.edit-action-btn.primary {
+  background: rgba(16, 185, 129, 0.16);
+  border-color: rgba(16, 185, 129, 0.4);
+  color: #34d399;
+}
+
+.edit-action-btn.primary:hover {
+  background: rgba(16, 185, 129, 0.28);
+  border-color: rgba(16, 185, 129, 0.6);
+  color: #ffffff;
+}
+
 .edit-action-btn.danger {
   color: #fda4af;
   border-color: rgba(244, 63, 94, 0.3);
@@ -274,6 +286,58 @@ body {
 
 .edit-action-btn.danger:hover {
   background: rgba(244, 63, 94, 0.2);
+}
+
+.plot-action-cluster {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: 10px;
+}
+
+.plot-pill-btn {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-main);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.plot-pill-btn:hover {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.plot-pill-btn.finish {
+  background: #10b981;
+  border-color: #059669;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.plot-pill-btn.finish:hover {
+  background: #059669;
+}
+
+.plot-pill-btn.finish:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.plot-pill-btn.undo {
+  color: #fbbf24;
+  border-color: rgba(251, 191, 36, 0.35);
+}
+
+.plot-pill-btn.cancel {
+  color: #f87171;
+  border-color: rgba(248, 113, 113, 0.35);
 }
 
 .edit-hint {
@@ -324,13 +388,23 @@ body {
   object-fit: cover;
   pointer-events: none;
   opacity: 0;
-  filter: brightness(1.08) contrast(1.05) saturate(1.05);
-  transition: opacity 0.25s ease;
+  filter: brightness(1.1) contrast(1.05) saturate(1.05);
+  transform: translateY(0) scale(1);
+  transition: opacity 0.28s ease, transform 0.38s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
   z-index: 3;
 }
 
 .viewport-card.has-focus .layer-spotlight-image {
   opacity: 1;
+  transform: translateY(-5px) scale(1.012);
+}
+
+/* In Edit Mode, keep cutout completely flat for 1:1 handle alignment */
+body.mode-editor .layer-spotlight-image,
+body.mode-editor .viewport-card.has-focus .layer-spotlight-image {
+  transform: translateY(0) scale(1) !important;
+  transition: opacity 0.2s ease !important;
 }
 
 /* --------------------------------------------------------------------------
@@ -354,7 +428,7 @@ body {
   pointer-events: all;
 }
 
-/* Wireframe strokes: clean, pure minimalist white */
+/* Wireframe strokes: hidden in normal hover, visible in Edit Mode */
 .wireframe-roof {
   fill: rgba(255, 255, 255, 0.04);
   stroke: var(--wireframe-stroke);
@@ -363,6 +437,7 @@ body {
   stroke-linecap: round;
   filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.6));
   opacity: 0;
+  display: none;
   transition: opacity 0.25s ease;
 }
 
@@ -373,24 +448,43 @@ body {
   stroke-linejoin: round;
   filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.6));
   opacity: 0;
+  display: none;
   transition: opacity 0.25s ease;
 }
 
 .wireframe-subfeature {
   stroke: var(--wireframe-stroke);
   opacity: 0;
+  display: none;
   transition: opacity 0.25s ease;
 }
 
+/* Normal hover mode: no wireframe lines on the surface */
 .active-building .wireframe-roof,
 .active-building .wireframe-edge,
 .active-building .wireframe-subfeature {
-  opacity: 1;
+  opacity: 0 !important;
+  display: none !important;
+}
+
+/* In Edit Mode, show the wireframe boundary for active calibration */
+body.mode-editor .building-vector-group.is-editing .wireframe-roof,
+body.mode-editor .building-vector-group.is-editing .wireframe-edge {
+  display: block !important;
+  opacity: 0.85 !important;
+  stroke-width: 2.2px;
+  filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.8));
 }
 
 /* --------------------------------------------------------------------------
    INTERACTIVE DRAGGABLE VERTEX HANDLES (EDIT MODE)
    -------------------------------------------------------------------------- */
+body.mode-editor .hud-card {
+  display: none !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
 body.mode-editor .building-hit-zone {
   pointer-events: none; /* Disable standard hover when in edit mode */
 }
@@ -456,17 +550,43 @@ body.mode-editor .building-vector-group.is-editing .wireframe-edge {
   stroke-width: 2px;
 }
 
+.replot-cursor-guide {
+  stroke: rgba(250, 204, 21, 0.7);
+  stroke-width: 1.5px;
+  stroke-dasharray: 4 4;
+  pointer-events: none;
+}
+
+.replot-first-dot {
+  fill: #10b981 !important;
+  stroke: #ffffff !important;
+  stroke-width: 2.5px !important;
+  cursor: pointer;
+}
+
+.replot-first-dot.is-snappable {
+  filter: drop-shadow(0 0 8px rgba(16, 185, 129, 0.9));
+  transform-origin: center;
+  animation: snapPulse 1.1s infinite alternate ease-in-out;
+}
+
+@keyframes snapPulse {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.4); }
+}
+
 /* --------------------------------------------------------------------------
-   MINIMALIST DIAMOND CALLOUT PINS & LABELS
+   MINIMALIST DIAMOND CALLOUT PINS & LABELS (Hidden for clean visual presentation)
    -------------------------------------------------------------------------- */
 .callout-group {
-  opacity: 0;
-  transition: opacity 0.25s ease;
+  display: none !important;
+  opacity: 0 !important;
   pointer-events: none;
 }
 
 .active-building .callout-group {
-  opacity: 1;
+  display: none !important;
+  opacity: 0 !important;
 }
 
 .pin-leader-line {

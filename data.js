@@ -65,13 +65,19 @@ const BUILDINGS = [
     // ],
 
         // Updated coordinates for The Terrace Landmark
+       // Updated coordinates for The Terrace Landmark (7 points)
+        // Updated coordinates for The Terrace Landmark (8 points)
+        // Updated coordinates for The Terrace Landmark (8 points)
+        // Updated coordinates for The Terrace Landmark (8 points)
     polygon: [
-      [1342, 238], // [0]
-      [1822, 437], // [1]
-      [1508, 638], // [2]
-      [1477, 1101], // [3]
-      [995, 870], // [4]
-      [1006, 412], // [5]
+      [989, 856], // [0]
+      [1021, 408], // [1]
+      [1346, 233], // [2]
+      [1820, 438], // [3]
+      [1814, 515], // [4]
+      [1504, 713], // [5]
+      [1510, 647], // [6]
+      [1467, 1109], // [7]
     ],
 
     // ------------------------------------------------------------------------
@@ -320,14 +326,15 @@ const BUILDINGS = [
 
 
         // Updated coordinates for Yerba Civic Pavilion
+        // Updated coordinates for Yerba Civic Pavilion (7 points)
     polygon: [
-      [382, 182], // [0]
-      [700, 30], // [1]
-      [1205, 258], // [2]
-      [748, 510], // [3]
-      [743, 652], // [4]
-      [393, 485], // [5]
-      [389, 335], // [6]
+      [383, 184], // [0]
+      [700, 29], // [1]
+      [1210, 261], // [2]
+      [966, 392], // [3]
+      [959, 592], // [4]
+      [750, 699], // [5]
+      [394, 515], // [6]
     ],
     roofPolygon: [
       [468, 54],     // [0] Top-left

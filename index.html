@@ -50,17 +50,25 @@
           <option value="bldg-civic-pavilion">4. Yerba Pavilion (7 pts)</option>
         </select>
         
+        <button id="newBuildingBtn" class="edit-action-btn primary" title="Create and plot a brand-new building on this image">+ New Building</button>
+
         <div class="mode-btn-group">
           <button id="modeDragBtn" class="mode-tab-btn active" title="Click & drag vertex handles">✋ Drag Handles</button>
-          <button id="modeReplotBtn" class="mode-tab-btn" title="Click points sequentially on the image">🎯 Re-plot Points</button>
+          <button id="modeReplotBtn" class="mode-tab-btn" title="Plot any number of points on this building">🎯 Plot Points</button>
         </div>
       </div>
 
       <div class="editor-center">
         <span id="editStatusReadout" class="edit-status">Drag handles to adjust alignment live</span>
+        <div id="plotActionCluster" class="plot-action-cluster" style="display: none;">
+          <button id="finishPlotBtn" class="plot-pill-btn finish" title="Complete polygon (Clicking 1st point or double-clicking also finishes)">✓ Complete Polygon</button>
+          <button id="undoPlotBtn" class="plot-pill-btn undo" title="Undo last point (Backspace)">↩ Undo</button>
+          <button id="cancelPlotBtn" class="plot-pill-btn cancel" title="Cancel plotting (Esc)">✕ Cancel</button>
+        </div>
       </div>
 
       <div class="editor-right">
+        <button id="deleteBuildingBtn" class="edit-action-btn danger" style="display: none;" title="Delete this custom building">🗑️ Delete</button>
         <button id="exportCodeBtn" class="edit-action-btn" title="Copy updated JavaScript code for data.js">📋 Copy Code</button>
         <button id="resetDefaultsBtn" class="edit-action-btn danger" title="Revert to original default coordinates">↺ Reset</button>
         <span class="edit-hint">Key: <b>E</b></span>
@@ -129,7 +137,7 @@
 
     <!-- Canvas Footer -->
     <footer class="canvas-footer">
-      <span>INDEXED: 4 STRUCTURES</span>
+      <span id="indexedCountText">INDEXED: 4 STRUCTURES</span>
       <span id="footerModeInfo">VIEW MODE: HOVER TELEMETRY</span>
       <span>Buildings.webp (2210 × 1473)</span>
     </footer>
